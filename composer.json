@@ -11,10 +11,8 @@
   },
   "autoload": {
     "psr-4": {
-      "WordWrap\\": "word-wrap/src/",
-      "WordWrap\\Tests\\": "word-wrap/tests/",
-      "FizzBuzz\\": "fizz-buzz/src/",
-      "FizzBuzz\\Tests\\": "fizz-buzz/tests/"
+      "Katas\\": "src/",
+      "Katas\\Tests\\": "tests/"
     }
   }
 }
