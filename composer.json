@@ -1,0 +1,20 @@
+{
+  "name": "kindratmakc/word-wrap",
+  "authors": [
+    {
+      "name": "kindratmakc",
+      "email": "kindratmakc@gmail.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "WordWrap\\": "word-wrap/src/",
+      "WordWrap\\Tests\\": "word-wrap/tests/",
+      "FizzBuzz\\": "fizz-buzz/src/",
+      "FizzBuzz\\Tests\\": "fizz-buzz/tests/"
+    }
+  }
+}
