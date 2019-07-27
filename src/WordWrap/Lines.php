@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Katas\WordWrap;
 
+use Closure;
+
 class Lines
 {
     /**
@@ -17,9 +19,7 @@ class Lines
 
     public function __construct(int $limit)
     {
-        $this->lines = [
-            new Line($limit),
-        ];
+        $this->lines = [new Line($limit)];
         $this->limit = $limit;
     }
 
@@ -39,27 +39,14 @@ class Lines
 
     public function accept(Word $word)
     {
-        if ($this->isLastLineFull()) {
-            $this->addLine();
-        }
-
         $lastLine = $this->getLast();
 
-        if ($lastLine->canAccept($word)) {
-            $lastLine->add($word);
-        } elseif (!$word->exceeds($this->limit)) {
-            $this->addLine();
-            $this->accept($word);
-        } elseif (!$lastLine->isFull()) {
-            list($leftPart, $rightPart) = $word->split($lastLine->spaceLeft());
-            $lastLine->add($leftPart);
-            $this->accept($rightPart);
-        }
+        $lastLine->accept($word, Closure::fromCallable([$this, 'addWordToNewLine']));
     }
 
-    private function isLastLineFull(): bool
-    {
-        return $this->getLast()->isFull();
+    private function addWordToNewLine(Word $word) {
+        $this->addLine();
+        $this->getLast()->accept($word, Closure::fromCallable([$this, 'addWordToNewLine']));
     }
 
     private function isLast(Line $line): bool

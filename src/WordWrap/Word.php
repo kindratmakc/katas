@@ -20,19 +20,9 @@ class Word
         return $this->content;
     }
 
-    public function exceeds(int $length): bool
+    public function fitsIn(int $limit): bool
     {
-        return $this->length() > $length;
-    }
-
-    public function getLeftHalf(int $pos): Word
-    {
-        return new Word(substr($this->content, 0, $pos));
-    }
-
-    public function getRightHalf(int $pos): Word
-    {
-        return new Word(substr($this->content, $pos));
+        return $this->length() <= $limit;
     }
 
     /**
@@ -41,12 +31,22 @@ class Word
     public function split(int $pos): array
     {
         return [
-            $this->getLeftHalf($pos),
-            $this->getRightHalf($pos),
+            $this->getLeftPart($pos),
+            $this->getRightPart($pos),
         ];
     }
 
-    public function length(): int
+    private function getLeftPart(int $pos): Word
+    {
+        return new Word(substr($this->content, 0, $pos));
+    }
+
+    private function getRightPart(int $pos): Word
+    {
+        return new Word(substr($this->content, $pos));
+    }
+
+    private function length(): int
     {
         return strlen($this->content);
     }

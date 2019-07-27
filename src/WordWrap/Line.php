@@ -25,7 +25,20 @@ class Line
         return $this->content;
     }
 
-    public function add(Word $word): void
+    public function accept(Word $word, callable $onCantAdd): void
+    {
+        if ($word->fitsIn($this->spaceLeft())) {
+            $this->addWord($word);
+        } elseif ($this->isFull() || $word->fitsIn($this->limit)) {
+            $onCantAdd($word);
+        } else {
+            list($leftPart, $rightPart) = $word->split($this->spaceLeft());
+            $this->addWord($leftPart);
+            $onCantAdd($rightPart);
+        }
+    }
+
+    private function addWord(Word $word): void
     {
         $wordContent = (string)$word;
         if ($this->isEmpty()) {
@@ -35,20 +48,15 @@ class Line
         }
     }
 
-    public function canAccept(Word $word): bool
-    {
-        return $word->length() <= $this->spaceLeft();
-    }
-
-    public function isFull(): bool
+    private function isFull(): bool
     {
         return $this->spaceLeft() < 1;
     }
 
-    public function spaceLeft(): int
+    private function spaceLeft(): int
     {
         return $this->isEmpty()
-            ? $this->limit - strlen($this->content)
+            ? $this->limit
             : $this->limit - strlen($this->content) - 1;
     }
 
