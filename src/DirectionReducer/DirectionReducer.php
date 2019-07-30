@@ -2,6 +2,9 @@
 
 namespace Katas\DirectionReducer;
 
+/**
+ * @see https://www.codewars.com/kata/550f22f4d758534c1100025a
+ */
 class DirectionReducer
 {
     public function reduce(array $values): array

@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Katas\WordWrap;
 
+/**
+ * @see https://www.codewars.com/kata/word-wrap-1
+ */
 class WordWrapper
 {
     public function wrap(string $input, int $limit): string

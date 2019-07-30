@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Katas\DuplicatesCounter;
 
+/**
+ * @see https://www.codewars.com/kata/54bf1c2cd5b56cc47f0007a1
+ */
 class DuplicatesCounter
 {
     public function count(string $input): int
